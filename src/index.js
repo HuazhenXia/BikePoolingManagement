@@ -4,7 +4,7 @@ import './index.css';
 // import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 // import Admin from './Admin';
-import Home from './pages/route_demo/route3/router';
+import Router from './router';
 
-ReactDOM.render(<Home />, document.getElementById('root'));
+ReactDOM.render(<Router />, document.getElementById('root'));
 registerServiceWorker();
