@@ -7,7 +7,7 @@ export default class Axios{
                 param: 'callback'
             }, function(err, response){
                 debugger;
-                if(response.status == 'success'){
+                if(response.status === 'success'){
                     resolve(response);
                 }else{
                     reject(response.message);
