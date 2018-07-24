@@ -1,4 +1,10 @@
-Go to http://localhost:3000/#/admin
+## Run Project
+yarn install
+yarn start
+I have finished:
+http://localhost:3000/#/admin
+http://localhost:3000/#/admin/home
+http://localhost:3000/#/admin/ui/buttons
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
