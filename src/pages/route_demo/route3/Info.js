@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class Main extends Component{
+class Info extends Component{
     render(){
         return (
            <div>
-               This is Home page
+                Test dynamic route. {this.props.match.params.testId}
            </div>
         );
     }
 }
 
-export default Main;
+export default Info;
