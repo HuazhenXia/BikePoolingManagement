@@ -5,15 +5,16 @@ import App from './App';
 import Admin from './Admin';
 import Login from './pages/login/Login';
 import Buttons from './pages/ui/buttons';
+import Modals from './pages/ui/modals';
 import NoMatch from './pages/noMatch/index';
 import Home from './pages/home/index';
+import FormLogin from './pages/form/login';
 
 export default class IRouter extends Component{
     render(){
         return(
             <HashRouter>
                 <App>
-                    
                         <Route path="/login" component={Login}/>
                         <Route path="/admin" render={()=>
                             <Admin>
@@ -21,6 +22,8 @@ export default class IRouter extends Component{
                                     <Route exact path="/admin" component={Home} />
                                     <Route path="/admin/home" component={Home} />
                                     <Route path="/admin/ui/buttons" component={Buttons} />
+                                    <Route path="/admin/ui/modals" component={Modals} />
+                                    <Route path="/admin/form/login" component={FormLogin} />
                                     <Route component={NoMatch} />
                                 </Switch>
                             </Admin>

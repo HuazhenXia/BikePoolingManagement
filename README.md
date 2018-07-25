@@ -2,9 +2,14 @@
 yarn install
 yarn start
 I have finished:
-http://localhost:3000/#/admin
-http://localhost:3000/#/admin/home
-http://localhost:3000/#/admin/ui/buttons
+Home: http://localhost:3000/#/admin
+      http://localhost:3000/#/admin/home
+Buttons: http://localhost:3000/#/admin/ui/buttons
+
+
+
+To be continued ...
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
