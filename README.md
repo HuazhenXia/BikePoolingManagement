@@ -1,11 +1,11 @@
 ## Run Project
-yarn install
-yarn start
-I have finished:
-Home: http://localhost:3000/#/admin
-      http://localhost:3000/#/admin/home
-Buttons: http://localhost:3000/#/admin/ui/buttons
-
+yarn install <br>
+yarn start  <br>
+I have finished: <br>
+Home: http://localhost:3000/#/admin <br>
+      http://localhost:3000/#/admin/home <br>
+Buttons: http://localhost:3000/#/admin/ui/buttons <br>
+Modals: http://localhost:3000/#/admin/ui/modals 
 
 
 To be continued ...
