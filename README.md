@@ -1,6 +1,8 @@
 ## Run Project
-yarn install <br>
-yarn start  <br>
+```
+yarn install
+yarn start
+```
 I have finished: <br>
 Home: http://localhost:3000/#/admin <br>
       http://localhost:3000/#/admin/home <br>
