@@ -5,7 +5,10 @@ I have finished: <br>
 Home: http://localhost:3000/#/admin <br>
       http://localhost:3000/#/admin/home <br>
 Buttons: http://localhost:3000/#/admin/ui/buttons <br>
-Modals: http://localhost:3000/#/admin/ui/modals 
+Modals: http://localhost:3000/#/admin/ui/modals <br>
+Loadings: http://localhost:3000/#/admin/ui/loadings <br>
+Notifications: http://localhost:3000/#/admin/ui/notification <br>
+Messages: http://localhost:3000/#/admin/ui/messages <br>
 
 
 To be continued ...

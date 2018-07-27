@@ -7,6 +7,7 @@ import Login from './pages/login/Login';
 import Buttons from './pages/ui/buttons';
 import Modals from './pages/ui/modals';
 import Loadings from './pages/ui/loadings';
+import Notifications from './pages/ui/notifications';
 import NoMatch from './pages/noMatch/index';
 import Home from './pages/home/index';
 import FormLogin from './pages/form/login';
@@ -25,6 +26,7 @@ export default class IRouter extends Component{
                                     <Route path="/admin/ui/buttons" component={Buttons} />
                                     <Route path="/admin/ui/modals" component={Modals} />
                                     <Route path="/admin/ui/loadings" component={Loadings} />
+                                    <Route path="/admin/ui/notification" component={Notifications} />
                                     <Route path="/admin/form/login" component={FormLogin} />
                                     <Route component={NoMatch} />
                                 </Switch>
