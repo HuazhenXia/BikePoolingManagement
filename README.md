@@ -4,8 +4,7 @@ yarn install
 yarn start
 ```
 I have finished: <br>
-Home: http://localhost:3000/#/admin <br>
-      http://localhost:3000/#/admin/home <br>
+Home: http://localhost:3000/#/admin http://localhost:3000/#/admin/home <br>
 Buttons: http://localhost:3000/#/admin/ui/buttons <br>
 Modals: http://localhost:3000/#/admin/ui/modals <br>
 Loadings: http://localhost:3000/#/admin/ui/loadings <br>
