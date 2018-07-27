@@ -10,6 +10,9 @@ Modals: http://localhost:3000/#/admin/ui/modals <br>
 Loadings: http://localhost:3000/#/admin/ui/loadings <br>
 Notifications: http://localhost:3000/#/admin/ui/notification <br>
 Messages: http://localhost:3000/#/admin/ui/messages <br>
+Tabs: http://localhost:3000/#/admin/ui/tabs <br>
+Gallery: http://localhost:3000/#/admin/ui/gallery <br>
+Carousel: http://localhost:3000/#/admin/ui/carousel <br>
 
 
 To be continued ...

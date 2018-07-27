@@ -34,7 +34,7 @@ export default class Gallery extends Component{
                 <Card.Meta 
                     style={{marginBottom:10}}
                     title="Gallery"
-                    description="Click to see bigger photo"
+                    description="Click to see the pic more clearly"
                 />
             </Card>
         ))
