@@ -44,14 +44,14 @@ export default class Header extends Component{
                 </Row>
                 <Row className="breadcrumb">
                     <Col span="4" className="bread-crumb-title">
-                        Home
+                        Content
                     </Col>
                     <Col span="20" className="weather">
                         <span className="date">{this.state.sysTime}</span>
                         <span className="weather-img">
                             <img src={this.state.dayPictureUrl} alt=""/>
                         </span>
-                        <span className="weather-detail">{this.state.weather}</span>
+                        {/* <span className="weather-detail">{this.state.weather}</span> */}
                     </Col>
                 </Row>
             </div>
