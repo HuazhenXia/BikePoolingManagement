@@ -51,7 +51,7 @@ const menuList = [
             },
             {
                 title:'Register',
-                key:'/admin/form/reg',
+                key:'/admin/form/register',
             }
         ]
     },
