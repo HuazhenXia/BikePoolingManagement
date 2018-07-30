@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import axios from 'axios';
+import axios from '../../axios';
 import {Table, Card} from 'antd';
 
 export default class BasicTable extends Component{
@@ -46,12 +46,17 @@ export default class BasicTable extends Component{
     }
 
     request = () => {
-        let baseUrl = " https://easy-mock.com/mock/5b5e5bded041e45d5c3c5241/shared-bikes";
-        axios.get(baseUrl+'/table/list').then((res) => {
-            if(res.status === 200 && res.data.code === 0){
-                // console.log(res.data.result.list);
+        axios.ajax({
+            url: '/table/list',
+            data: {
+                params: {
+                    page: 1
+                }
+            }
+        }).then((res) => {
+            if(res.code === 0){
                 this.setState({
-                    dataSourceAPI: res.data.result
+                    dataSourceAPI: res.result
                 })
             }
         })
@@ -109,3 +114,19 @@ export default class BasicTable extends Component{
         )
     }
 }
+
+
+// {
+//     "code": 0,
+//     "msg": "",
+//     "result|10": [{
+//       "id|+1": 1,
+//       userName: "@name",
+//       "sex|1-2": 1,
+//       "state|1-4": 1,
+//       "interest|1-5": 1,
+//       birthday: '2000-01-01',
+//       address: 'CA USA',
+//       time: '09:00'
+//     }]
+//   }
