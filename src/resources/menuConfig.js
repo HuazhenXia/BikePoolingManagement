@@ -1,125 +1,125 @@
 const menuList = [
     {
-        title:'Home',
-        key:'/admin/home'
+        title:'首页',
+        key:'/home'
     },
     {
         title:'UI',
-        key:'/admin/ui',
+        key:'/ui',
         children:[
             {
-                title:'Button',
-                key:'/admin/ui/buttons',
+                title:'按钮',
+                key:'/ui/buttons',
             },
             {
-                title:'Modal',
-                key:'/admin/ui/modals',
+                title:'弹框',
+                key:'/ui/modals',
             },
             {
                 title:'Loading',
-                key:'/admin/ui/loadings',
+                key:'/ui/loadings',
             },
             {
-                title:'Notification',
-                key:'/admin/ui/notification',
+                title:'通知提醒',
+                key:'/ui/notification',
             },
             {
-                title:'Global Message',
-                key:'/admin/ui/messages',
+                title:'全局Message',
+                key:'/ui/messages',
             },
             {
-                title:'Tab',
-                key:'/admin/ui/tabs',
+                title:'Tab页签',
+                key:'/ui/tabs',
             },
             {
-                title:'Gallery',
-                key:'/admin/ui/gallery',
+                title:'图片画廊',
+                key:'/ui/gallery',
             },
             {
-                title:'Carousel',
-                key:'/admin/ui/carousel',
+                title:'轮播图',
+                key:'/ui/carousel',
             }
         ]
     },
     {
-        title:'Form',
-        key:'/admin/form',
+        title:'表单',
+        key:'/form',
         children:[
             {
-                title:'Login',
-                key:'/admin/form/login',
+                title:'登录',
+                key:'/form/login',
             },
             {
-                title:'Register',
-                key:'/admin/form/reg',
+                title:'注册',
+                key:'/form/reg',
             }
         ]
     },
     {
-        title:'Table',
-        key:'/admin/table',
+        title:'表格',
+        key:'/table',
         children:[
             {
-                title:'BasicTable',
-                key:'/admin/table/basic',
+                title:'基础表格',
+                key:'/table/basic',
             },
             {
-                title:'AdvancedTable',
-                key:'/admin/table/high',
+                title:'高级表格',
+                key:'/table/high',
             }
         ]
     },
     {
-        title:'RichText',
-        key:'/admin/rich'
+        title:'富文本',
+        key:'/rich'
     },
     {
-        title:'City',
-        key:'/admin/city'
+        title:'城市管理',
+        key:'/city'
     },
     {
-        title:'Order',
-        key:'/admin/order',
+        title:'订单管理',
+        key:'/order',
         btnList:[
             {
-                title:'OrderDetail',
+                title:'订单详情',
                 key:'detail'
             },
             {
-                title:'FinishOrder',
+                title:'结束订单',
                 key:'finish'
             }
         ]
     },
     {
-        title:'User',
-        key:'/admin/user'
+        title:'员工管理',
+        key:'/user'
     },
     {
-        title:'BikeMap',
-        key:'/admin/bikeMap'
+        title:'车辆地图',
+        key:'/bikeMap'
     },
     {
-        title:'Chart',
-        key:'/admin/charts',
+        title:'图标',
+        key:'/charts',
         children:[
             {
-                title:'Bar',
-                key:'/admin/charts/bar'
+                title:'柱形图',
+                key:'/charts/bar'
             },
             {
-                title:'Pie',
-                key:'/admin/charts/pie'
+                title:'饼图',
+                key:'/charts/pie'
             },
             {
-                title:'Line',
-                key:'/admin/charts/line'
+                title:'折线图',
+                key:'/charts/line'
             },
         ]
     },
     {
-        title:'Permission',
-        key:'/admin/permission'
+        title:'权限设置',
+        key:'/permission'
     },
 ];
 export default menuList;
