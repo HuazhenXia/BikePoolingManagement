@@ -16,7 +16,8 @@ I have finished: <br>
 - Gallery: http://localhost:3000/#/admin/ui/gallery <br>
 - Carousel: http://localhost:3000/#/admin/ui/carousel <br>
 - Form - login: http://localhost:3000/#/admin/form/login <br>
-- Form - Register: http://localhost:3000/#/admin/form/reg <br>
+- Form - Register: http://localhost:3000/#/admin/form/register <br>
+- Table - BasicTable: http://localhost:3000/#/admin/table/basic <br>
 
 
 To be continued ...
