@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import axios from '../../axios';
-import {Table, Card} from 'antd';
+import {Table, Card, Modal} from 'antd';
 
 export default class BasicTable extends Component{
     state = {
@@ -41,6 +41,11 @@ export default class BasicTable extends Component{
                 time: '07:00'
             },
         ]
+
+        data.map((item, index)=> {
+            item.key = index
+        })
+
         this.setState({dataSource: data});
         this.request();
     }
@@ -51,14 +56,30 @@ export default class BasicTable extends Component{
             data: {
                 params: {
                     page: 1
-                }
+                },
+                // isShowLoading: false
             }
         }).then((res) => {
             if(res.code === 0){
+                res.result.map((item, index) =>{
+                    item.key = index
+                })
                 this.setState({
                     dataSourceAPI: res.result
                 })
             }
+        })
+    }
+
+    onRowClick = (record, index) => {
+        let selectKey = [index];
+        Modal.info({
+            title: 'Information',
+            content: `Hi, User name: ${record.userName}`
+        })
+        this.setState({
+            selectedRowKeys: selectKey,
+            selectItem: record
         })
     }
 
@@ -74,12 +95,44 @@ export default class BasicTable extends Component{
             },
             {
                 title : 'Sex',
-                dataIndex: 'sex'
+                dataIndex: 'sex',
+                render(sex){
+                    return sex === 1? 'Male' : 'Female'
+                }
             },
             {
                 title : 'Interest',
-                dataIndex: 'interest'
+                dataIndex: 'interest',
+                render(state){
+                    let config = {
+                        '1': 'Football',
+                        '2': 'Shopping',
+                        '3': 'Work out',
+                        '4': 'Run',
+                        '5': 'Film',
+                        '6': 'Reading',
+                        '7': 'Basketball',
+                        '8': 'Kongfu',
+                        '9': 'Cooking',
+                    }
+                    return config[state]
+                }
             },
+            {
+                title : 'State',
+                dataIndex:'state',
+                render(state){
+                    let config = {
+                        '1': 'Energetic Teenage',
+                        '2': 'Beautiful Lady',
+                        '3': 'Geek',
+                        '4': 'Gym guy',
+                        '5': 'Film Fan'
+                    }
+                    return config[state];
+                }
+            },
+
             {
                 title : 'Birthday',
                 dataIndex: 'birthday'
@@ -94,6 +147,12 @@ export default class BasicTable extends Component{
             }
         ]
 
+        const selectedRowKeys = this.state.selectedRowKeys;
+        const rowSelection = {
+            type: 'radio',
+            selectedRowKeys
+        }
+
         return (
             <div>
                 <Card title="Basic Table" className="">
@@ -103,10 +162,25 @@ export default class BasicTable extends Component{
                         pagination={false}
                     />
                 </Card>
-                <Card title="Dynamically Renderring Table" style={{margin:"10 auto"}}>
+                <Card title="Dynamically Renderring Table - Mock" style={{margin:"10 auto"}}>
                     <Table 
                         columns={columns}
                         dataSource={this.state.dataSourceAPI}
+                        pagination={false}
+                    />
+                </Card>
+                <Card title="Table with Radio Button" style={{margin:"10 auto"}}>
+                    <Table 
+                        columns={columns}
+                        dataSource={this.state.dataSourceAPI}
+                        rowSelection={rowSelection}
+                        onRow={(record, index) => {
+                            return {
+                                onClick: ()=>{
+                                    this.onRowClick(record, index)
+                                }
+                            }
+                        }}
                         pagination={false}
                     />
                 </Card>
