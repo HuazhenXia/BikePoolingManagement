@@ -51,7 +51,7 @@ export default class AdvancedTable extends Component{
     }
 
     handleDelete = (item) => {
-        let id = item.id;
+        // let id = item.id;
         console.log("item: "+item);
         Modal.confirm({
             title: "Confirm",

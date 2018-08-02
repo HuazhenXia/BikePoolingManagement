@@ -41,13 +41,14 @@ export default class Axios{
                 }
                 if(response.status === 200){
                     let res = response.data;
+                    console.log("res code:"+ res.code)
                     if(res.code === 0){
                         // console.log(res)
                         resolve(res)
                     }else{
                         Modal.info({
                             title: "Prompt",
-                            content: res.data.msg
+                            content: "Error"
                         })
                     }
                 }else{
