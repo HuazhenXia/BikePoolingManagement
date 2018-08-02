@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Table, Card, Modal, Button, message} from 'antd';
+import {Table, Card, Badge, Button, Modal, message} from 'antd';
 import axios from '../../axios';
 
 export default class AdvancedTable extends Component{
@@ -18,7 +18,7 @@ export default class AdvancedTable extends Component{
     request = () => {
         // let _this = this;
         axios.ajax({
-            url: '/table/list',
+            url: '/table/advance/list',
             data: {
                 params: {
                     page: this.params.page
@@ -40,6 +40,25 @@ export default class AdvancedTable extends Component{
                     //     this.request()
                 })
                 
+            }
+        })
+    }
+
+    handleChange = (pagination, filters, sorter)=>{
+        this.setState({
+            sortOrder:sorter.order
+        })
+    }
+
+    handleDelete = (item) => {
+        let id = item.id;
+        console.log("item: "+item);
+        Modal.confirm({
+            title: "Confirm",
+            content: `You really want to delete this user?`,
+            onOk:()=>{
+                message.success('Delete successfully');
+                this.request();
             }
         })
     }
@@ -216,6 +235,168 @@ export default class AdvancedTable extends Component{
             }
         ]
 
+        const columnsSort = [
+            {
+                title : 'id',
+                key: 'id',
+                dataIndex: 'id',
+            },
+            {
+                title : 'User Name',
+                dataIndex: 'userName',
+                key: 'userName',
+            },
+            {
+                title : 'Age',
+                dataIndex: 'age',
+                key: 'age',
+                sorter:(a,b) => {
+                    return a.age-b.age;
+                },
+                sortOrder:this.state.sortOrder
+            },
+            {
+                title : 'Sex',
+                dataIndex: 'sex',
+                key:'sex',
+                render(sex){
+                    return sex === 1? 'Male' : 'Female'
+                }
+            },
+            {
+                title : 'Interest',
+                dataIndex: 'interest',
+                key: 'interest',
+                render(state){
+                    let config = {
+                        '1': 'Football',
+                        '2': 'Shopping',
+                        '3': 'Work out',
+                        '4': 'Run',
+                        '5': 'Film',
+                        '6': 'Reading',
+                        '7': 'Basketball',
+                        '8': 'Kongfu',
+                        '9': 'Cooking',
+                    }
+                    return config[state]
+                }
+            },
+            {
+                title : 'State',
+                dataIndex:'state',
+                key:'state',
+                render(state){
+                    let config = {
+                        '1': 'Energetic Teenage',
+                        '2': 'Beautiful Lady',
+                        '3': 'Geek',
+                        '4': 'Gym guy',
+                        '5': 'Film Fan'
+                    }
+                    return config[state];
+                }
+            },
+
+            {
+                title : 'Birthday',
+                dataIndex: 'birthday',
+                key: 'birthday',
+            },
+            {
+                title : 'Address',
+                dataIndex: 'address',
+                key: 'address',
+            },
+            {
+                title : 'Wake up time',
+                dataIndex: 'time',
+                key: 'time'
+            }
+        ]
+
+        const columnsIndicator = [
+            {
+                title : 'id',
+                key: 'id',
+                dataIndex: 'id',
+            },
+            {
+                title : 'User Name',
+                dataIndex: 'userName',
+                key: 'userName',
+            },
+            {
+                title : 'Age',
+                dataIndex: 'age',
+                key: 'age',
+                sorter:(a,b) => {
+                    return a.age-b.age;
+                },
+                sortOrder:this.state.sortOrder
+            },
+            {
+                title : 'Sex',
+                dataIndex: 'sex',
+                key:'sex',
+                render(sex){
+                    return sex === 1? 'Male' : 'Female'
+                }
+            },
+            {
+                title : 'Interest',
+                dataIndex: 'interest',
+                key: 'interest',
+                render(state){
+                    let config = {
+                        '1': 'Football',
+                        '2': 'Shopping',
+                        '3': 'Work out',
+                        '4': 'Run',
+                        '5': 'Film',
+                        '6': 'Reading',
+                        '7': 'Basketball',
+                        '8': 'Kongfu',
+                        '9': 'Cooking',
+                    }
+                    return config[state]
+                }
+            },
+            {
+                title : 'State',
+                dataIndex:'state',
+                key:'state',
+                render(state){
+                    let config = {
+                        '1': <Badge status="success" text="Energetic Teenage"/>,
+                        '2': <Badge status="warning" text="Beautiful Lady"/>,
+                        '3': <Badge status="default" text="Geek"/>,
+                        '4': <Badge status="error" text="Gym guy"/>,
+                        '5': <Badge status="processing" text="File Fan"/>
+                    }
+                    return config[state];
+                }
+            },
+
+            {
+                title : 'Birthday',
+                dataIndex: 'birthday',
+            },
+            {
+                title : 'Address',
+                dataIndex: 'address'
+            },
+            {
+                title : 'Wake up time',
+                dataIndex: 'time',
+                render: (text, item)=>{
+                    return <Button 
+                        size="small"
+                        onClick={(item)=>{this.handleDelete(item)}}
+                    >Delete</Button>
+                }
+            }
+        ]
 
         return (
             <div>
@@ -233,6 +414,22 @@ export default class AdvancedTable extends Component{
                         dataSource={this.state.dataSourceAPI}
                         pagination={false}
                         scroll={{x:1450}}
+                    />
+                </Card>
+                <Card title="Sort">
+                    <Table 
+                        columns={columnsSort}
+                        dataSource={this.state.dataSourceAPI}
+                        pagination={false}
+                        onChange={this.handleChange}
+                    />
+                </Card>
+                <Card title="Badge">
+                    <Table 
+                        columns={columnsIndicator}
+                        dataSource={this.state.dataSourceAPI}
+                        pagination={false}
+                        onChange={this.handleChange}
                     />
                 </Card>
             </div>

@@ -18,6 +18,7 @@ I have finished: <br>
 - Form - login: http://localhost:3000/#/admin/form/login <br>
 - Form - Register: http://localhost:3000/#/admin/form/register <br>
 - Table - BasicTable: http://localhost:3000/#/admin/table/basic <br>
+- Table - AdvancedTable: http://localhost:3000/#/admin/table/advanced <br>
 
 
 To be continued ...
