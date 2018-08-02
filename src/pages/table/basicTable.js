@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import axios from '../../axios';
-import {Table, Card, Modal} from 'antd';
+import {Table, Card, Modal, Button, message} from 'antd';
 
 export default class BasicTable extends Component{
     state = {
@@ -42,7 +42,7 @@ export default class BasicTable extends Component{
             },
         ]
 
-        data.map((item, index)=> {
+        data.map((item, index) => {
             item.key = index
         })
 
@@ -65,7 +65,9 @@ export default class BasicTable extends Component{
                     item.key = index
                 })
                 this.setState({
-                    dataSourceAPI: res.result
+                    dataSourceAPI: res.result,
+                    selectedRowKeys: [],
+                    selectedRows: null
                 })
             }
         })
@@ -80,6 +82,22 @@ export default class BasicTable extends Component{
         this.setState({
             selectedRowKeys: selectKey,
             selectItem: record
+        })
+    }
+
+    handleDelete = () => {
+        let rows = this.state.selectedRows;
+        let ids = [];
+        rows.map((item) => {
+            ids.push(item.id)
+        })
+        Modal.confirm({
+            title: 'Delete Warning',
+            content: `Are you sure to deletethose items? ${ids.join(',')}`,
+            onOk: ()=>{
+                message.success('Delete successfully');
+                this.request();
+            }
         })
     }
 
@@ -153,6 +171,17 @@ export default class BasicTable extends Component{
             selectedRowKeys
         }
 
+        const rowCheckSelection = {
+            type: 'checkbox',
+            selectedRowKeys,
+            onChange : (selectedRowKeys, selectedRows) => {
+                this.setState({
+                    selectedRowKeys,
+                    selectedRows
+                })
+            }
+        }
+
         return (
             <div>
                 <Card title="Basic Table" className="">
@@ -162,18 +191,36 @@ export default class BasicTable extends Component{
                         pagination={false}
                     />
                 </Card>
-                <Card title="Dynamically Renderring Table - Mock" style={{margin:"10 auto"}}>
+                <Card title="Dynamically Renderring Table - Mock" style={{margin:"10px auto"}}>
                     <Table 
                         columns={columns}
                         dataSource={this.state.dataSourceAPI}
                         pagination={false}
                     />
                 </Card>
-                <Card title="Table with Radio Button" style={{margin:"10 auto"}}>
+                <Card title="Table with Radio Button" style={{margin:"10px auto"}}>
                     <Table 
                         columns={columns}
                         dataSource={this.state.dataSourceAPI}
                         rowSelection={rowSelection}
+                        onRow={(record, index) => {
+                            return {
+                                onClick: ()=>{
+                                    this.onRowClick(record, index)
+                                }
+                            }
+                        }}
+                        pagination={false}
+                    />
+                </Card>
+                <Card title="Table with Checkbox Button" style={{margin:"10px auto"}}>
+                    <div style={{marginBottom:10}}>
+                        <Button onClick={this.handleDelete}>Delete</Button>
+                    </div>
+                    <Table 
+                        columns={columns}
+                        dataSource={this.state.dataSourceAPI}
+                        rowSelection={rowCheckSelection}
                         onRow={(record, index) => {
                             return {
                                 onClick: ()=>{
