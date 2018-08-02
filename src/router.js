@@ -17,6 +17,7 @@ import Home from './pages/home/index';
 import FormLogin from './pages/form/login';
 import FormRegister from './pages/form/register';
 import TableBasic from './pages/table/basicTable';
+import TableAdvanced from './pages/table/AdvancedTable';
 
 export default class IRouter extends Component{
     render(){
@@ -40,6 +41,7 @@ export default class IRouter extends Component{
                                     <Route path="/admin/form/login" component={FormLogin} />
                                     <Route path="/admin/form/register" component={FormRegister} />
                                     <Route path="/admin/table/basic" component={TableBasic} />
+                                    <Route path="/admin/table/advanced" component={TableAdvanced} />
                                     <Route component={NoMatch} />
                                 </Switch>
                             </Admin>

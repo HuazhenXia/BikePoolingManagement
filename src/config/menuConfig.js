@@ -65,7 +65,7 @@ const menuList = [
             },
             {
                 title:'AdvancedTable',
-                key:'/admin/table/high',
+                key:'/admin/table/advanced',
             }
         ]
     },
