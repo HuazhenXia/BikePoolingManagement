@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 
-import axios from '../../axios';
 import {Table, Card, Modal, Button, message} from 'antd';
+import axios from '../../axios';
+import Utils from '../../utils/utils';
 
 export default class BasicTable extends Component{
     state = {
         dataSourceAPI: []
+    }
+
+    params = {
+        page: 1
     }
 
     componentDidMount(){
@@ -51,23 +56,29 @@ export default class BasicTable extends Component{
     }
 
     request = () => {
+        let _this = this;
         axios.ajax({
             url: '/table/list',
             data: {
                 params: {
-                    page: 1
+                    page: this.params.page
                 },
                 // isShowLoading: false
             }
         }).then((res) => {
             if(res.code === 0){
-                res.result.map((item, index) =>{
+                // console.log(res.result["list"])
+                res.result.list.map((item, index) =>{
                     item.key = index
                 })
                 this.setState({
-                    dataSourceAPI: res.result,
+                    dataSourceAPI: res.result.list,
                     selectedRowKeys: [],
-                    selectedRows: null
+                    selectedRows: null,
+                    pagination: Utils.pagination(res,(current)=>{
+                        _this.params.page = current;
+                        this.request()
+                    })
                 })
             }
         })
@@ -213,7 +224,7 @@ export default class BasicTable extends Component{
                         pagination={false}
                     />
                 </Card>
-                <Card title="Table with Checkbox Button" style={{margin:"10px auto"}}>
+                <Card title="Mock Table with Checkbox Button" style={{margin:"10px auto"}}>
                     <div style={{marginBottom:10}}>
                         <Button onClick={this.handleDelete}>Delete</Button>
                     </div>
@@ -229,6 +240,13 @@ export default class BasicTable extends Component{
                             }
                         }}
                         pagination={false}
+                    />
+                </Card>
+                <Card title="Mock Table with Pagination" style={{margin:"10px auto"}}>
+                    <Table 
+                        columns={columns}
+                        dataSource={this.state.dataSourceAPI}
+                        pagination={this.state.pagination}
                     />
                 </Card>
             </div>
