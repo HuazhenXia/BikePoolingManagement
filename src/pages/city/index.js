@@ -10,7 +10,10 @@ const Option = Select.Option;
 
 export default class City extends Component{
 
-    state = {}
+    state = {
+        list: [],
+        isShowOpenCity: false
+    }
 
     componentDidMount(){
         this.requestList();
@@ -22,7 +25,9 @@ export default class City extends Component{
 
     //open a new city
     handleOpenCity = ()=> {
-        
+        this.setState({
+            isShowOpenCity: true
+        })
     }
 
     requestList = () => {
@@ -48,6 +53,24 @@ export default class City extends Component{
         })
     }
 
+    handleOpenSubmit = () => {
+        let cityInfo = this.cityForm.props.form.getFieldsValue();
+        axios.ajax({
+            url: '/city/open',
+            data: {
+                params: cityInfo
+            }
+        }).then((res) => {
+            if(res.code === 0){
+                message.success('Open successfully');
+                this.setState({
+                    isShowOpenCity: false
+                })
+                this.requestList()
+            }
+        })
+    }
+
     render(){
         const columns = [
             {
@@ -60,11 +83,17 @@ export default class City extends Component{
             },
             {
                 title: 'Usage Mode',
-                dataIndex: 'mode'
+                dataIndex: 'mode',
+                render(mode){
+                    return mode===1 ? 'Parking Spot':'Forbidden Zone'
+                }
             },
             {
                 title: 'Operation Mode',
-                dataIndex: 'op_mode'
+                dataIndex: 'op_mode',
+                render(mode){
+                    return mode===1 ? 'Self-Operation':'Franchisee'
+                }
             },
             {
                 title: 'Franchisee',
@@ -85,13 +114,15 @@ export default class City extends Component{
             },
             {
                 title: 'Update Time',
-                dataIndex: 'update_time'
+                dataIndex: 'update_time',
+                render: Utils.formateDate
             },
             {
                 title: 'Operator',
                 dataIndex: 'sys_user_name'
             },
         ]
+
         return(
             <div>
                 <Card className="card">
@@ -107,6 +138,19 @@ export default class City extends Component{
                         columns={columns}
                     />
                 </div>
+                <Modal
+                    title="Open"
+                    visible={this.state.isShowOpenCity}
+                    onCancel={()=>{
+                        this.setState({
+                            isShowOpenCity: false
+                        })
+                    }}
+                    onOk={this.handleOpenSubmit}    
+                >
+                    <OpenCityForm 
+                        wrappedComponentRef={(instance)=>{this.cityForm = instance}}/>
+                </Modal>
                 
 
             </div>
@@ -175,3 +219,62 @@ class FilterForm extends Component{
 }
 
 FilterForm = Form.create({})(FilterForm);
+
+class OpenCityForm extends Component{
+
+    render(){
+        const formItemLayout = {
+            labelCol: { span:6 },
+            wrapperCol:{ span: 12 }
+        }
+
+        const {getFieldDecorator} = this.props.form;
+
+        return (
+            <div>
+                <Form>
+                    <FormItem label="Select City" {...formItemLayout}>
+                    {
+                        getFieldDecorator('city_id', {
+                            initialValue: '1'
+                        })(
+                            <Select>
+                                <Option value="1">New York</Option>
+                                <Option value="2">L.A.</Option>
+                            </Select>
+                        )
+                    }
+                    </FormItem>
+                    <FormItem label="Operation Mode" {...formItemLayout}>
+                    {
+                        getFieldDecorator('op_mode', {
+                            initialValue: '1'
+                        })(
+                            <Select>
+                                <Option value="1">Self-Operation</Option>
+                                <Option value="2">Franchisee</Option>
+                            </Select>
+                        )
+                    }
+                        
+                    </FormItem>
+                    <FormItem label="Usage Mode" {...formItemLayout}>
+                    {
+                        getFieldDecorator('use_mode', {
+                            initialValue: '1'
+                        })(
+                            <Select>
+                                <Option value="1">Designated Parking Spot</Option>
+                                <Option value="2">Forbidden Zone</Option>
+                            </Select>
+                        )
+                    }
+                        
+                    </FormItem>
+                </Form>
+            </div>
+        )
+    }
+}
+
+OpenCityForm = Form.create({})(OpenCityForm);
