@@ -9,7 +9,10 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 export default class Order extends Component{
-    state = {}
+    state = {
+        orderInfo: {},
+        orderConfirmVisible: false
+    }
 
     params = {
         page: 1
@@ -45,8 +48,60 @@ export default class Order extends Component{
         })
     }
 
-    handleCancel = () => {
+    handleConfirm = () => {
+        let item = this.state.selectItem;
+        if(!item){
+            Modal.info({
+                title: 'Message',
+                content: 'please select an order item'
+            })
+            return
+        }
+        axios.ajax({
+            url:'/order/ebike_info',
+            data: {
+                params: {
+                    orderId: item.id
+                }
+            }
+        }).then(res => {
+            if(res.code === 0){
+                this.setState({
+                    orderInfo: res.result,
+                    orderConfirmVisible: true
+                })
+            }
+        })
+    }
 
+    handleFinishOrder = () => {
+        let item = this.state.selectItem;
+
+        axios.ajax({
+            url:'/order/finish_order',
+            data: {
+                params: {
+                    orderId: item.id
+                }
+            }
+        }).then(res => {
+            if(res.code === 0){
+                message.info("Finish order successfully!")
+                this.setState({
+                    orderConfirmVisible: false,
+                })
+            }
+            this.requestList();
+        })
+    }
+
+    onRowClick = (record, index) => {
+        let selectKey = [index];
+        
+        this.setState({
+            selectedRowKeys: selectKey,
+            selectItem: record
+        })
     }
 
     render(){
@@ -69,7 +124,10 @@ export default class Order extends Component{
             },
             {
                 title: "Mileage",
-                dataIndex: "distance"
+                dataIndex: "distance",
+                render(distance){
+                    return distance/1000
+                }
             },
             {
                 title: "Total Time",
@@ -97,6 +155,17 @@ export default class Order extends Component{
             },
         ]
 
+        const formItemLayout = {
+            labelCol: {span:8},
+            wrapperCol: {span:10}
+        }
+
+        const selectedRowKeys = this.state.selectedRowKeys;
+        const rowSelection = {
+            type: 'radio',
+            selectedRowKeys
+        }
+
         return (
             <div>
                 <Card className="card">
@@ -110,22 +179,45 @@ export default class Order extends Component{
                 </Card>
                 <div className="content-wrap">
                     <Table 
-                         dataSource={this.state.list}
-                         pagination={this.state.pagination}
-                         columns={columns}
+                        dataSource={this.state.list}
+                        pagination={this.state.pagination}
+                        columns={columns}
+                        rowSelection={rowSelection}
+                        onRow={(record, index) => {
+                            return {
+                                onClick: ()=>{
+                                    this.onRowClick(record, index)
+                                }
+                            }
+                        }}
+                        pagination={false}
                     />
                 </div>
                 <Modal
-                    title="Cancel Order"
+                    title="Finish Order"
                     visible={this.state.orderConfirmVisible}
                     onCancel={()=>{
                         this.setState({
                             orderConfirmVisible: false
                         })
                     }}
-                    onOk={this.handleCancelOrder}
-
+                    onOk={this.handleFinishOrder}
+                    width={600}
                 >
+                    <Form layout="horizontal">
+                        <FormItem label="Bike Number" {...formItemLayout}>
+                            {this.state.orderInfo.bike_sn}
+                        </FormItem>
+                        <FormItem label="Remaining Battery" {...formItemLayout}>
+                            {this.state.orderInfo.battery + "%"}
+                        </FormItem>
+                        <FormItem label="Start Time" {...formItemLayout}>
+                            {this.state.orderInfo.start_time}
+                        </FormItem>
+                        <FormItem label="Current Location" {...formItemLayout}>
+                            {this.state.orderInfo.location}
+                        </FormItem>
+                    </Form>
 
                 </Modal>
 
