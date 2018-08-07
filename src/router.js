@@ -20,6 +20,7 @@ import TableBasic from './pages/table/basicTable';
 import TableAdvanced from './pages/table/AdvancedTable';
 import City from './pages/city';
 import Order from './pages/order';
+import Common from './Common';
 
 export default class IRouter extends Component{
     render(){
@@ -50,7 +51,15 @@ export default class IRouter extends Component{
                                 </Switch>
                             </Admin>
                         }/>
-                        <Route path="/order/detail" component={Login}/>
+                        <Route path="/common" 
+                            render = {() => 
+                                <Common>
+                                    <Route path="/common/order/detail/:orderId" component={Login} />
+                                </Common>
+                            }
+                        />
+
+                        {/* <Route path="/order/detail" component={Login}/> */}
                 </App>
 
             </HashRouter>

@@ -104,6 +104,19 @@ export default class Order extends Component{
         })
     }
 
+    openOrderDetail = () => {
+        let item = this.state.selectItem;
+        if(!item){
+            Modal.info({
+                title: 'Message',
+                content: 'please select an order item'
+            })
+            return
+        }
+        window.open(`/#/common/order/detail/${item.id}`, '_blank');
+
+    }
+
     render(){
         const columns = [
             {
@@ -172,7 +185,7 @@ export default class Order extends Component{
                     <FilterForm />
                 </Card>
                 <Card>
-                    <Button type="primary">Order Detail</Button>
+                    <Button type="primary" onClick={this.openOrderDetail}>Order Detail</Button>
                     <Button type="primary" 
                         onClick={this.handleConfirm}
                         style={{marginLeft:10}}>Finish Order</Button>

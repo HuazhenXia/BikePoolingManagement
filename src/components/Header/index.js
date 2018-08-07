@@ -36,24 +36,37 @@ export default class Header extends Component{
     }
 
     render(){
+        const menuType = this.props.menuType;
         return (
             <div className="header">
                 <Row className="header-top">
-                    <span>Welcome, {this.state.username}! </span>
-                    <a href="">LOG OUT</a>
-                </Row>
-                <Row className="breadcrumb">
-                    <Col span="4" className="bread-crumb-title">
-                        Content
-                    </Col>
-                    <Col span="20" className="weather">
-                        <span className="date">{this.state.sysTime}</span>
-                        <span className="weather-img">
-                            <img src={this.state.dayPictureUrl} alt=""/>
-                        </span>
-                        {/* <span className="weather-detail">{this.state.weather}</span> */}
+                    {
+                        menuType ? 
+                            <Col span="6" className="logo">
+                                <img src="/assets/logo-ant.svg" alt="logo"/>
+                                <span>Shared Bikes Management</span>
+                            </Col> : ''
+                    }
+                    <Col span={menuType?18:24}>
+                        <span>Welcome, {this.state.username}! </span>
+                        <a href="">LOG OUT</a>
                     </Col>
                 </Row>
+                {
+                    menuType ? '':
+                        <Row className="breadcrumb">
+                            <Col span="4" className="bread-crumb-title">
+                                Content
+                            </Col>
+                            <Col span="20" className="weather">
+                                <span className="date">{this.state.sysTime}</span>
+                                <span className="weather-img">
+                                    <img src={this.state.dayPictureUrl} alt=""/>
+                                </span>
+                                {/* <span className="weather-detail">{this.state.weather}</span> */}
+                            </Col>
+                        </Row>
+                }
             </div>
         )
     }
